@@ -38,3 +38,16 @@ export const deleteContact = async (contactId) => {
     throw error;
   }
 };
+
+export const addContact = async (contactData) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/api/contacts`,
+      contactData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error adding contact:", error);
+    throw error;
+  }
+};

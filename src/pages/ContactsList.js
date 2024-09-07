@@ -6,6 +6,8 @@ const ContactsList = () => {
   const [contacts, setContacts] = useState([]);
   const [expandedRows, setExpandedRows] = useState({});
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -17,6 +19,7 @@ const ContactsList = () => {
     };
 
     fetchContacts();
+    setLoading(false);
   }, []);
 
   const handleDelete = (id) => {
@@ -65,6 +68,14 @@ const ContactsList = () => {
             </tr>
           </thead>
           <tbody>
+            {contacts.length === 0 && !loading && (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  No contacts found
+                </td>
+              </tr>
+            )}
+
             {contacts.map((contact) => (
               <tr key={contact.id}>
                 <td>{`${contact.firstName} ${contact.lastName}`}</td>
